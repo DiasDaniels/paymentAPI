@@ -1,18 +1,6 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import {GatewaySchema } from '#database/schema';
 
-export default class Gateway extends BaseModel {
 
+export default class Gateway extends GatewaySchema {
     public static table = 'gateways'
-
-    @column()
-    declare name: string
-
-    @column()
-    declare active_is: boolean
-
-    @column()
-    declare priority: number
-
-    @column({isPrimary: true})
-    declare id: number
 }

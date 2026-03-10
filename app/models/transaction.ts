@@ -1,39 +1,13 @@
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { belongsTo } from '@adonisjs/lucid/orm'
 import Client from './client.ts'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Gateway from './gateway.ts'
 import Product from './product.ts'
+import { TransactionSchema } from '#database/schema'
 
-export default class Transaction extends BaseModel {
+export default class Transaction extends TransactionSchema {
 
     public static table = 'transactions'
-
-    @column({isPrimary: true})
-    declare id: number
-
-    @column()
-    declare external_id: number
-
-    @column()
-    declare gateway_id: number
-
-    @column()
-    declare status: string
-
-    @column()
-    declare amount: number
-    
-    @column()
-    declare card_last_numbers: number
-
-    @column()
-    declare product_id: number
-
-    @column()
-    declare quantity: number
-
-    @column()
-    declare client_id: number
 
     @belongsTo(() => Client, {foreignKey: 'client_id'})
     declare client: BelongsTo<typeof Client>

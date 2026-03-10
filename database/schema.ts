@@ -33,19 +33,115 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = ['email', 'name', 'id', 'password'] as const
   $columns = UserSchema.$columns
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
-  @column()
-  declare email: string
-  @column()
-  declare fullName: string | null
-  @column({ isPrimary: true })
+  
+  @column({isPrimary: true})
   declare id: number
-  @column({ serializeAs: null })
+
+  @column()
+  declare email:string
+
+  @column({serializeAs: null})
   declare password: string
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime | null
+
+  @column()
+  declare role: string
+}
+
+export class GatewaySchema extends BaseModel {
+  static $columns = ['name','active_is','priority','id']  as const
+  $columns = GatewaySchema.$columns
+
+  @column()
+  declare name: string
+
+  @column()
+  declare active_is: boolean
+
+  @column()
+  declare priority: number
+
+  @column({isPrimary: true})
+  declare id: number
+}
+
+
+export class ClientSchema extends BaseModel{
+  static $columns = ['name','email','id']  as const
+  $columns = ClientSchema.$columns
+
+    @column()
+    declare email: string
+  
+    @column()
+    declare name: string
+  
+    @column({isPrimary: true})
+    declare id: number
+}
+
+export class ProductSchema extends BaseModel {
+
+  static $columns = ['name','id','amount']  as const
+  $columns = ProductSchema.$columns
+
+  @column({isPrimary: true})
+  declare id: number
+
+  @column()
+  declare name: string
+
+  @column()
+  declare amount: number
+
+}
+
+export class TransactionProductSchema extends BaseModel{
+
+  static $columns = ['id','name','quantity']  as const
+  $columns = TransactionProductSchema.$columns
+  
+  @column({isPrimary: true})
+  declare id: number
+
+  @column()
+  declare name: string
+
+  @column()
+  declare quantity: number
+}
+
+export class TransactionSchema extends BaseModel {
+
+  static $columns = ['id', 'external_id', 'gateway_id', 'status', 'amount', 'card_last_numbers', 'product_id', 'quantity', 'client_id']  as const
+  $columns = TransactionSchema.$columns
+
+  @column({isPrimary: true})
+    declare id: number
+
+    @column()
+    declare external_id: number
+
+    @column()
+    declare gateway_id: number
+
+    @column()
+    declare status: string
+
+    @column()
+    declare amount: number
+    
+    @column()
+    declare card_last_numbers: number
+
+    @column()
+    declare product_id: number
+
+    @column()
+    declare quantity: number
+
+    @column()
+    declare client_id: number
 }
 

@@ -1,17 +1,13 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import User from './user.ts'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { ClientSchema } from '#database/schema'
+import { belongsTo } from '@adonisjs/lucid/orm'
 
-export default class Client extends BaseModel {
+export default class Client extends ClientSchema {
 
     public static table = 'clients'
-
-    @column()
-    declare email: string
-
-    @column()
-    declare name: string
-
-    @column({isPrimary: true})
-    declare id: number
-
+    
+    @belongsTo(() => User, {foreignKey: 'id'})
+    declare user_id: BelongsTo<typeof User>
 
 }
