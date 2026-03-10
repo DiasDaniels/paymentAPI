@@ -10,28 +10,28 @@
 
 import router from '@adonisjs/core/services/router'
 import { controllers } from '#generated/controllers'
+import { middleware } from './kernel.ts'
 
-
-router.get('/', () => {
-  return { hello : 'world' }
-})
 
 router
   .group(() => {
+
+    //Rotas Públicas
     router
       .group(() => {
         router.post('signup', [controllers.NewAccount, 'store'])
         router.post('login', [controllers.AccessToken, 'store'])
-        router.post('logout', [controllers.AccessToken, 'destroy'])
       })
       
-
+    //Rotas Privadas  
     router
       .group(() => {
-        router.get('/profile', [controllers.Profile, 'show'])
+        router.get('profile', [controllers.Profile, 'show'])
+        router.post('logout', [controllers.AccessToken, 'destroy'])
       })
       .prefix('account')
       .as('profile')
+      .use(middleware.auth())
 
   })
-  .prefix('/api/v1')
+  .prefix('/api/')
