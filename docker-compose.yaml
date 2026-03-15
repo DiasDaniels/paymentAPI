@@ -1,0 +1,42 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payments
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+  mock:
+      image: matheusprotzen/gateways-mock
+      ports:
+        - "3001:3001"
+        - "3002:3002"
+    
+  api:
+    build: .
+    depends_on:
+      - mysql
+    ports:
+      - "3333:3333"
+    environment:
+    - DB_HOST=mysql
+    - DB_PORT=3306
+    - DB_USER=user
+    - DB_PASSWORD=password
+    - DB_DATABASE=payments
+    - GATEWAY1_URL=http://mock:3001
+    - GATEWAY1_EMAIL=dev@betalent.tech
+    - GATEWAY1_TOKEN=FEC9BB078BF338F464F96B48089EB498
+    - GATEWAY2_URL=http://mock:3002
+    - GATEWAY2_AUTH_TOKEN=tk_f2198cc671b5289fa856
+    - GATEWAY2_AUTH_SECRET=3d15e8ed6131446ea7e3456728b1211f
+    - HOST=0.0.0.0
+    - PORT=3333
+
+volumes: 
+  mysql_data:

@@ -1,0 +1,45 @@
+/* eslint-disable prettier/prettier */
+import type { routes } from './index.ts'
+
+export interface ApiDefinition {
+  newAccount: {
+    store: typeof routes['new_account.store']
+  }
+  accessToken: {
+    store: typeof routes['access_token.store']
+    destroy: typeof routes['access_token.destroy']
+  }
+  purchase: {
+    store: typeof routes['purchase.store']
+  }
+  profile: {
+    show: typeof routes['profile.show']
+  }
+  gateway: {
+    toggle: typeof routes['gateway.toggle']
+    priority: typeof routes['gateway.priority']
+  }
+  user: {
+    index: typeof routes['user.index']
+    show: typeof routes['user.show']
+    store: typeof routes['user.store']
+    update: typeof routes['user.update']
+    destroy: typeof routes['user.destroy']
+  }
+  product: {
+    index: typeof routes['product.index']
+    show: typeof routes['product.show']
+    store: typeof routes['product.store']
+    update: typeof routes['product.update']
+    destroy: typeof routes['product.destroy']
+  }
+  client: {
+    index: typeof routes['client.index']
+    show: typeof routes['client.show']
+  }
+  transaction: {
+    index: typeof routes['transaction.index']
+    show: typeof routes['transaction.show']
+    refund: typeof routes['transaction.refund']
+  }
+}
